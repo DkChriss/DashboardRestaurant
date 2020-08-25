@@ -1,5 +1,84 @@
     <script>
+            const asignPermissionFn = (evt, rows, dt) => {
+        let uri = `{{route("user-permission.show", "##")}}`;
+        let firstRow = selectedRow[SELECTED_ROW];
+        let url = _.replace(uri, '##', firstRow.id);
+        $('#userPermisoCrudForm').trigger('reset');
+        $.ajax({
+            type: 'GET',
+            url,
+            dataType: "JSON",
+            success: function ({ data, code}) {
+                _.forEach(data, function (value) {
+                    var nombre = "#" + value.name;
+                    $(nombre).prop('checked', true);
+                });
+                $('#userPermisoCrudModalTitle').html("Asignar Permisos");
+                $('#userPermisoCrudModal').modal('show');
+            },
+            error: data =>  {
+                console.log(data);
+            }
+        });
+    }
+    const asignRoleFn  = (evt, rows, dt) => {
+        let uri = `{{route("user-role.show", "##")}}`;
+        let firstRow = selectedRow[SELECTED_ROW];
+        let url = _.replace(uri, '##', firstRow.id);
+        $('#userRolCrudForm').trigger('reset');
+        $.ajax({
+            type: 'GET',
+            url,
+            dataType: "JSON",
+            success: function ({ data, code}) {
+                _.forEach(data, function (value) {
+                    var nombre = "#" + value.name;
+                    $(nombre).prop('checked', true);
+                });
+                $('#userRolCrudModalTitle').html("Asignar Roles");
+                $('#userRolCrudModal').modal('show');
+            },
+            error: data =>  {
+                console.log(data);
+            }
+        });
+    }
+    const activacion = () => {
+        $("#asignPermissionBtn-{{ $id }}").attr('disabled', false);
+        $("#asignRolBtn-{{ $id }}").attr('disabled', false);
+    }
+    const desactivacion = () => {
+        $("#asignPermissionBtn-{{ $id }}").attr('disabled', true);
+        $("#asignRolBtn-{{ $id }}").attr('disabled', true);
+    }
     const datatable = {
+        buttons: [{
+            type : "asignPermission",
+            text: 'Asignar Permisos',
+            icon: 'fas fa-plus-square',
+            className: 'btn btn-info btn-sm',
+            action: asignPermissionFn,
+            attr:  {
+                title: 'Asignar Permisos Al Usuario Seleccionado',
+                id: 'asignPermissionBtn',
+                disabled: true
+            },
+        },{
+            type : "asignRol",
+            text: 'Asignar Rol',
+            icon: 'fas fa-plus-square',
+            className: 'btn btn-info btn-sm',
+            action: asignRoleFn,
+            attr:  {
+                title: 'Asignar Roles Al Usuario Seleccionado',
+                id: 'asignRolBtn',
+                disabled: true
+            },
+        }],
+        selectActions : {
+            onSelect: activacion,
+            onDeselect: desactivacion,
+        },
         crud: {
             buttons: ['delete', 'edit', 'create'],
             fields: {
@@ -116,4 +195,66 @@
             }
         }
     }
+    $(document).ready(function () {
+        $('#userPermisoSubmitButton').click(function (e) {
+            let uri = `{{route("user-permission.update", "##")}}`;
+            let firstRow = selectedRow[SELECTED_ROW];
+            let url = _.replace(uri, '##', firstRow.id);
+            $(this).html('Enviando...');
+            $.ajax({
+                type: 'PATCH',
+                url,
+                data: $('#userPermisoCrudForm').serialize(),
+                dataType: "JSON",
+                success: function ({ data, code}) {
+                        Swal.fire({
+                            title: '¡Exito!',
+                            text: data,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        $('#userPermisoSubmitButton').html(`<i class="fas fa-share-square"></i> {{ __('Asignar') }}`);
+                        $('#userPermisoCrudForm').trigger('reset');
+                        $('#userPermisoCrudModal').modal('hide');
+                },
+                error: data =>  {
+                        $('#userPermisoSubmitButton').html(`<i class="fas fa-share-square"></i> {{ __('Asignar') }}`);
+                        errorMessage(data);
+                        $("#userPermisoCrudForm").validate().showErrors(data.responseJSON);
+                }
+            });
+        });
+        $('#userRolSubmitButton').click(function (e) {
+            let uri = `{{route("user-role.update", "##")}}`;
+            let firstRow = selectedRow[SELECTED_ROW];
+            let url = _.replace(uri, '##', firstRow.id);
+            $(this).html('Enviando...');
+            $.ajax({
+                type: 'PATCH',
+                url,
+                data: $('#userRolCrudForm').serialize(),
+                dataType: "JSON",
+                success: function ({ data, code}) {
+                        Swal.fire({
+                            title: '¡Exito!',
+                            text: data,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        $('#userRolSubmitButton').html(`<i class="fas fa-share-square"></i> {{ __('Asignar') }}`);
+                        $('#userRolCrudForm').trigger('reset');
+                        $('#userRolCrudModal').modal('hide');
+                },
+                error: data =>  {
+                        $('#userRolSubmitButton').html(`<i class="fas fa-share-square"></i> {{ __('Asignar') }}`);
+                        errorMessage(data);
+                        $('#userRolCrudForm').validate().showErrors(data.responseJSON);
+                }
+            });
+        });
+    });
 </script>
+@include('users/partials/permission_form')
+@include('users/partials/roles_form')

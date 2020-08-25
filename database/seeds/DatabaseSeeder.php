@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DrinkTableSeeder::class);
         $this->call(ComboTableSeeder::class);
         $this->call(ShoppingTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
     }
 }
