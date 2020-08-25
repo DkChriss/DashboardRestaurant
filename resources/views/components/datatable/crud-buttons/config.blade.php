@@ -10,17 +10,17 @@
 
         let selectedRowsCount = dt.rows( { selected: true } ).count();
         let url, params;
-        
+
         params = {
             _token: "{{ csrf_token() }}"
         }
 
-        if (selectedRowsCount > 1) { 
+        if (selectedRowsCount > 1) {
             let selectedRows = dt.rows( { selected: true } ).data();
             let ids = [];
             selectedRows.toArray().forEach(currentRow => ids.push(currentRow.id));
-            url = `{{ isset($crud['uri']) && Route::has("{$crud['uri']}.destroy-multiple") 
-                    ? route("{$crud['uri']}.destroy-multiple") 
+            url = `{{ isset($crud['uri']) && Route::has("{$crud['uri']}.destroy-multiple")
+                    ? route("{$crud['uri']}.destroy-multiple")
                     : ''}}`;
 
             if (url.length == 0) return;
@@ -137,7 +137,9 @@
         });
     }
 
-    let buttons = [{
+    let buttons = [
+    @can('create-' . $crud['uri'])
+    {
         type: 'create',
         text: 'Crear',
         icon: 'fas fa-plus-square',
@@ -147,7 +149,8 @@
             title: 'Crea un nuevo elemento',
             id: 'createBtn'
         }
-    }, {
+    },@endcan
+    @can('edit-' . $crud['uri']){
         type: 'edit',
         text: 'Editar',
         icon: 'fas fa-edit',
@@ -158,7 +161,8 @@
             id: 'editBtn',
             disabled: true
         }
-    }, {
+    },@endcan
+    @can('delete-' . $crud['uri']){
         type: 'delete',
         text: 'Eliminar',
         icon: 'fas fa-trash-alt',
@@ -169,8 +173,7 @@
             id: 'deleteBtn',
             disabled: true
         }
-    }];
-
+    }@endcan];
     let crudActions =
         datatable.crud &&
         datatable.crud.buttons &&

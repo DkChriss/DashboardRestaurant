@@ -27,7 +27,7 @@ class RoleTableSeeder extends Seeder
             [
                 'Shopping',
                 'Order Combo',
-                'Order Dishe',
+                'Order Dish',
                 'Order Drink',
             ]
         )->get());
@@ -38,7 +38,7 @@ class RoleTableSeeder extends Seeder
             [
                 'Shopping',
                 'Order Combo',
-                'Order Dishe',
+                'Order Dish',
                 'Order Drink',
             ]
         )->get());
