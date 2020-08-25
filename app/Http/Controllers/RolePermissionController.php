@@ -10,8 +10,7 @@ class RolePermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:update-role-permission', ['only' => ['update']]);
-        $this->middleware('permission:show-role-permission', ['only' => ['show']]);
+
     }
 
     public function update(Role $rolePermission, PermissionRequest $request)

@@ -232,9 +232,20 @@ return [
     'menu' => [
         ['header' => 'MENU'],
         [
-            'text' => 'User',
-            'url'  => 'user',
-            'icon' => 'fas fa-fw fa-user',
+            'text'    => 'Administración',
+            'icon'    => 'fas fa-users-cog',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'url'  => 'user',
+                    'icon' => 'fa fa-caret-right',
+                ],
+                [
+                    'text' => 'Roles',
+                    'url'  => 'role',
+                    'icon' => 'fa fa-caret-right',
+                ],
+            ],
         ],
         [
             'text' => 'Bebidas',
@@ -276,7 +287,7 @@ return [
             'url'  => 'order-combos',
             'icon' => 'fas fa-clipboard-list'
         ]
-        
+
     ],
 
     /*

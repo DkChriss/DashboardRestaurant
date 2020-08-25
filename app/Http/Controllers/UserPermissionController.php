@@ -9,8 +9,7 @@ class UserPermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view-user');
-        $this->middleware('permission:assign-permission', ['only' => ['show', 'update']]);
+
     }
 
     public function update(User $userPermission, PermissionRequest $request)

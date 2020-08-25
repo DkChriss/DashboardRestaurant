@@ -9,8 +9,6 @@ class UserRoleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view-user');
-        $this->middleware('permission:assign-rol', ['only' => ['show', 'update']]);
     }
 
     public function update(User $userRole, UserRoleRequest $request)
