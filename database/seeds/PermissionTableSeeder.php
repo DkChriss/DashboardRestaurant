@@ -24,7 +24,8 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'delete-combos', 'type' => 'Combos']);
         Permission::create(['name' => 'view-combos',   'type' => 'Combos']);
 
-
+        // Administracion - menu
+        Permission::create(['name' => 'view-administracion-menu',   'type' => 'Administracion Menu']);
         // usuarios
         Permission::create(['name' => 'create-user',       'type' => 'User']);
         Permission::create(['name' => 'edit-user',         'type' => 'User']);

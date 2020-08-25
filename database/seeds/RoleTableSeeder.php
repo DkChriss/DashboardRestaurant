@@ -14,19 +14,37 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $usuarioEricka = User::where('username', 'ericka.ergueta')->first();
-        $usuarioVanessa = User::where('username', 'vanessa.candia')->first();
-        $usuarioSara = User::where('username', 'sara.luna')->first();
-        $usuarioCinthya = User::where('username', 'cinthya.pereira')->first();
-        $usuarioCarmen = User::where('username', 'carmen.ayala')->first();
+        $user = User::find(1);
+        $user1 = User::find(2);
+        $user2 = User::find(3);
 
-        $admin = Role::create(['name' => 'ADMINISTRADOR']);
+        $admin = Role::create(['name' => 'ADMIN']);
         $admin->givePermissionTo(Permission::all());
 
         $admin_1 = Role::create(['name' => 'CAJERO']);
-        $admin_1->givePermissionTo(Permission::all());
+        $admin_1->givePermissionTo(Permission::whereIn(
+            'type',
+            [
+                'Shopping',
+                'Order Combo',
+                'Order Dishe',
+                'Order Drink',
+            ]
+        )->get());
 
         $admin_2 = Role::create(['name' => 'SECRETARIA']);
-        $admin_2->givePermissionTo(Permission::all());
+        $admin_2->givePermissionTo(Permission::whereIn(
+            'type',
+            [
+                'Shopping',
+                'Order Combo',
+                'Order Dishe',
+                'Order Drink',
+            ]
+        )->get());
+
+        $user->assignRole($admin);
+        $user1->assignRole($admin_1);
+        $user2->assignRole($admin_2);
     }
 }

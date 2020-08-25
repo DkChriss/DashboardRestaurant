@@ -234,58 +234,69 @@ return [
         [
             'text'    => 'Administración',
             'icon'    => 'fas fa-users-cog',
+            'can'     => 'view-administracion-menu',
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'url'  => 'user',
                     'icon' => 'fa fa-caret-right',
+                    'can'  => 'view-user'
                 ],
                 [
                     'text' => 'Roles',
                     'url'  => 'role',
                     'icon' => 'fa fa-caret-right',
+                    'can'  => 'view-role'
                 ],
             ],
         ],
         [
             'text' => 'Bebidas',
             'url'  => 'drink',
-            'icon' => 'fas fa-cocktail'
+            'icon' => 'fas fa-cocktail',
+            'can'  => 'view-drink'
         ],
         [
             'text' => 'Comidas',
             'url' => 'dish',
-            'icon' => 'fas fa-utensils'
+            'icon' => 'fas fa-utensils',
+            'can'  => 'view-dishe'
         ],
         [
             'text' => 'Combos',
             'url' => 'combo',
-            'icon' => 'fas fa-cloud-meatball'
+            'icon' => 'fas fa-cloud-meatball',
+            'can'  => 'view-combos'
         ],
         [
             'text' => 'Clientes',
             'url'  => 'client',
-            'icon' => 'fas fa-user-tag'
+            'icon' => 'fas fa-user-tag',
+            'can'  => 'view-cliente'
         ],
         [
             'text' => 'Tomar Orden',
             'url'  => 'order',
-            'icon' => 'fas fa-clipboard-list'
+            'icon' => 'fas fa-clipboard-list',
+            'can' => 'view-shopping'
         ],
         [
             'text' => 'Ordenes Comidas',
             'url'  => 'order-dishes',
-            'icon' => 'fas fa-clipboard-list'
+            'icon' => 'fas fa-clipboard-list',
+            'can'  => 'view-order-dishe'
         ],
         [
             'text' => 'Ordenes Bebidas',
             'url'  => 'order-drinks',
-            'icon' => 'fas fa-clipboard-list'
+            'icon' => 'fas fa-clipboard-list',
+            'can'  => 'view-order-drink'
         ],
         [
             'text' => 'Ordenes Combos',
             'url'  => 'order-combos',
-            'icon' => 'fas fa-clipboard-list'
+            'icon' => 'fas fa-clipboard-list',
+            'can'  => 'view-order-combo'
         ]
 
     ],
