@@ -44,7 +44,8 @@
                             ])}}
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-end">
+                    <div class="card-footer justify-content-between">
+                        <button type="button" class="btn btn-sm btn-danger" id="cancel-order">Cancelar orden</button>
                         <button type="submit" class="btn btn-sm btn-info">Realizar pedido</button>
                     </div>
                 </div>
@@ -65,15 +66,25 @@
             </div>
             <div class="card-body">
                 <p id="void" class="text-center">Sin pedidos...</p>
-                <div class="row justify-content-between text-center table-bordered">
-                    <div class="col-3">
-                        <h6>Plato</h6>
+                <div class="row text-center table-bordered">
+                    <div class="col-8">
+                        <div class="row justify-content-between">
+                            <div class="col-3">
+                                <h6>Pedido</h6>
+                            </div>
+                            <div class="col-3">
+                                <h6>P.U.</h6>
+                            </div>
+                            <div class="col-3">
+                                <h6>Cantidad</h6>
+                            </div>
+                            <div class="col-3">
+                                <h6>Total</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <h6>Cantidad</h6>
-                    </div>
-                    <div class="col-3">
-                        <h6>Total</h6>
+                    <div class="col-4">
+                        <h6>Acciones</h6>
                     </div>
                 </div>
                 <div class="col-12 text-center" id="dish-order">
@@ -141,6 +152,9 @@
     var combos = [];
     var validator;
 
+    $('#cancel-order').click(function (e) { 
+        resetForm();
+    });
     function resetForm(form) {
         validator.reset();
         validator.resetForm();
@@ -194,9 +208,9 @@
         let price = $(object).find('div.price').text();
 
         if($(container).find(`#${id}`).text() != "") {
-            let text =  $(`#quantity-${id}`).text();
-            $(`#quantity-${id}`).html(parseInt(text)+1);
-            let quantity =  $(`#quantity-${id}`).text();
+            let text =  $(`#${type}-quantity-${id}`).text();
+            $(`#${type}-quantity-${id}`).html(parseInt(text)+1);
+            let quantity =  $(`#${type}-quantity-${id}`).text();
             let total = parseInt(price) * parseInt(quantity);
             if(type === 'dish') {
                 dish_total[pos] = parseInt(quantity);
@@ -219,15 +233,30 @@
                 combo_total[id] = 1;
             }
             $(container).append(
-                `<div class="row justify-content-between">
-                    <div class="col-3">
-                        <p id="${id}">${name}</p>
+                `<div id="div-content-${id}" class="row">
+                    <div class="col-8">
+                        <div class="row justify-content-between">
+                            <div class="col-3">
+                                <p id="${id}">${name}</p>
+                            </div>
+                            <div class="col-3">
+                                <p id="${type}-price-${id}">${price}</p>
+                            </div>
+                            <div class="col.3">
+                                <p id="${type}-quantity-${id}">1</p>
+                            </div>  
+                            <div class="col-3">
+                                <p id="total-price-${id}" class="quantity-price ${type}">${price}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col.3">
-                        <p id="quantity-${id}">1</p>
-                    </div>  
-                    <div class="col-3">
-                        <p id="total-price-${id}" class="quantity-price ${type}">${price}</p>
+                    <div class="col-4">
+                        <button type="button" value="${id}" id="cancel-order-${type}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash-alt"></i> Cancelar
+                        </button>
+                        <button type="button" value="${id}" id="down-order-${type}" class="btn btn-sm btn-info">
+                            <i class="fas fa-arrow-down"></i>Reducir
+                        </button>
                     </div>
                 </div> `
             );
@@ -236,16 +265,13 @@
             array.push(id);
         }
     }
-    function calcTotal(type)
-    {
+    function calcTotal(type) {
         let total = 0;
-        $(`p.${type}`).each(function ()
-        {
+        $(`p.${type}`).each(function () {
             total += parseInt($(this).text());
-        })
+        });
         return total;
     }
-
     $(document).ready(function () {
         $('button[type=submit]').prop('disabled','disabled');
         createAjax('row-content-dishes', '{{route("order.dishes")}}', 'dish');
@@ -265,8 +291,7 @@
                 addOrder(this, '#combo-order', combos, 'combo');
             }
             let total = 0;
-            $('p.quantity-price').each(function (key,value)
-            {
+            $('p.quantity-price').each(function (key,value) {
                 total = total + parseInt($(this).text());
             });
             $('#total-order').html(total + 'Bs');
@@ -337,7 +362,69 @@
                     }
                 });
             }
-        });        
+        });
     });
+
+    function reducirPedido(array, pos, type) {
+        let p = $(`p#${type}-quantity-${pos}`).text();
+        if (parseInt(p) <= 1) {
+            array[pos] = 0;
+            $(`div#div-content-${pos}`).html("");   
+        } else {
+            array[pos] = array[pos] - 1;
+            $(`p#${type}-quantity-${pos}`).html(array[pos]);
+        }
+        let precioTotal = parseInt($(`p#${type}-price-${pos}`).text()) * parseInt($(`p#${type}-quantity-${pos}`).text());
+        $(`p#total-price-${pos}`).html(precioTotal);
+        let total = 0;
+        $('p.quantity-price').each(function (key,value) {
+            total = total + parseInt($(this).text());
+        });
+        $('#total-order').html(total + 'Bs');
+    }
+
+    function cancelarTotal(array, pos) {
+        array[pos] = 0;
+        $(`div#div-content-${pos}`).html("");
+        let total = 0;
+        $('p.quantity-price').each(function (key,value) {
+            total = total + parseInt($(this).text());
+        });
+        $('#total-order').html(total + 'Bs');
+    }
+
+    $(document).on("click", "div#dish-order button", function () {
+        if($(this).hasClass('btn-danger')) {
+            let pos = $(this).val();
+            cancelarTotal(dish_total, pos);
+        }
+        if($(this).hasClass('btn-info')) {
+            let pos = $(this).val();
+            reducirPedido(dish_total, pos,  "dish");
+        }
+    });
+
+    $(document).on("click", "div#drink-order button", function () {
+        if($(this).hasClass('btn-danger')) {
+            let pos = $(this).val();
+            cancelarTotal(drink_total, pos);
+        }
+        if($(this).hasClass('btn-info')) {
+            let pos = $(this).val();
+            reducirPedido(drink_total, pos, "drink");
+        }
+    });
+
+    $(document).on("click", "#combo-order button", function () {
+        if($(this).hasClass('btn-danger')) {
+            let pos = $(this).val();
+            cancelarTotal(combo_total, pos);
+        }
+        if($(this).hasClass('btn-info')) {
+            let pos = $(this).val();
+            reducirPedido(combo_total, pos, "combo");
+        }
+    });
+
 </script>
 @endpush
