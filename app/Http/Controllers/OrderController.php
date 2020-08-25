@@ -95,57 +95,65 @@ class OrderController extends Controller
                 $client->name = $request->name;
                 $client->lastname = $request->lastname;
                 $client->user_id = $request->user_id;
+                
                 $client->saveOrFail();
             }
 
             if(!empty($request->dish_id) && !empty($request->dish_total)) {
                 foreach ($request->dish_id as $key => $value) {
+                    if ($request->dish_total[$value] > 0) {
 
-                    $dish = Dish::findOrFail($value);
-                    
-                    $total = $dish->price * $request->dish_total[$value];
+                        $dish = Dish::findOrFail($value);
 
-                    $dishOrder = new OrderDish();
-                    
-                    $dishOrder->dish_id = $dish->id;
-                    $dishOrder->client_id = $client->id;
-                    $dishOrder->quantity = $request->dish_total[$value];
-                    $dishOrder->total = $total;
-                    
-                    $dishOrder->saveOrFail();
+                        $total = $dish->price * $request->dish_total[$value];
+    
+                        $dishOrder = new OrderDish();
+                        
+                        $dishOrder->dish_id = $dish->id;
+                        $dishOrder->client_id = $client->id;
+                        $dishOrder->quantity = $request->dish_total[$value];
+                        $dishOrder->total = $total;
+                        
+                        $dishOrder->saveOrFail();
+                    }
                 }
             }
             if(!empty($request->drink_id) && !empty($request->drink_total)) {
                 foreach($request->drink_id as $key => $value) {
+                    if ($request->drink_total[$value] > 0) {
 
-                    $drink = Drink::findOrFail($value);
-                    
-                    $total = $drink->price * $request->drink_total[$value];
-
-                    $drinkOrder = new OrderDrink();
-
-                    $drinkOrder->drink_id =  $drink->id;
-                    $drinkOrder->client_id = $client->id;
-                    $drinkOrder->quantity = $request->drink_total[$value];
-                    $drinkOrder->total = $total;
-
-                    $drinkOrder->saveOrFail();
+                        $drink = Drink::findOrFail($value);
+                        
+                        $total = $drink->price * $request->drink_total[$value];
+    
+                        $drinkOrder = new OrderDrink();
+    
+                        $drinkOrder->drink_id =  $drink->id;
+                        $drinkOrder->client_id = $client->id;
+                        $drinkOrder->quantity = $request->drink_total[$value];
+                        $drinkOrder->total = $total;
+    
+                        $drinkOrder->saveOrFail();
+                    }
                 }
             }
             if(!empty($request->combo_id) && !empty($request->combo_total)) {
                 foreach($request->combo_id as $key => $value) {
-                    $combo = Combo::findOrFail($value);
+                    if ($request->combo_total[$value] > 0) {
 
-                    $total = $combo->price * $request->combo_total[$value];
-
-                    $comboOrder = new OrderCombo();
-
-                    $comboOrder->combo_id = $combo->id;
-                    $comboOrder->client_id = $client->id;
-                    $comboOrder->quantity = $request->combo_total[$value];
-                    $comboOrder->total = $total;
-
-                    $comboOrder->saveOrFail();
+                        $combo = Combo::findOrFail($value);
+    
+                        $total = $combo->price * $request->combo_total[$value];
+    
+                        $comboOrder = new OrderCombo();
+    
+                        $comboOrder->combo_id = $combo->id;
+                        $comboOrder->client_id = $client->id;
+                        $comboOrder->quantity = $request->combo_total[$value];
+                        $comboOrder->total = $total;
+    
+                        $comboOrder->saveOrFail();
+                    }
                 }
             }
             DB::commit();
