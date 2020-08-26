@@ -21,12 +21,12 @@
 @section('auth_header', __('adminlte::adminlte.login_message'))
 
 @section('auth_body')
-    <form action="{{ $login_url }}" method="post" autocomplete="off">
+    <form id="form-login" action="{{ $login_url }}" method="post" autocomplete="off">
         {{ csrf_field() }}
 
         {{-- Email field --}}
         <div class="input-group mb-3">
-            <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}"
+            <input type="text" id="username" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}"
                 value="{{ old('username') }}" placeholder="Nombre de usuario" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -42,7 +42,7 @@
 
         {{-- Password field --}}
         <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+            <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
                 placeholder="{{ __('adminlte::adminlte.password') }}">
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -55,7 +55,7 @@
                 </div>
             @endif
         </div>
-
+        
         {{-- Login field --}}
         <div class="row">
             <div class="col">
