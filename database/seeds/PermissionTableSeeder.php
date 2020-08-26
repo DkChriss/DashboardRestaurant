@@ -13,16 +13,16 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         // cliente
-        Permission::create(['name' => 'create-cliente', 'type' => 'Cliente']);
-        Permission::create(['name' => 'edit-cliente',   'type' => 'Cliente']);
-        Permission::create(['name' => 'delete-cliente', 'type' => 'Cliente']);
-        Permission::create(['name' => 'view-cliente',   'type' => 'Cliente']);
+        Permission::create(['name' => 'create-client', 'type' => 'Cliente']);
+        Permission::create(['name' => 'edit-client',   'type' => 'Cliente']);
+        Permission::create(['name' => 'delete-client', 'type' => 'Cliente']);
+        Permission::create(['name' => 'view-client',   'type' => 'Cliente']);
 
         // combos
-        Permission::create(['name' => 'create-combos', 'type' => 'Combos']);
-        Permission::create(['name' => 'edit-combos',   'type' => 'Combos']);
-        Permission::create(['name' => 'delete-combos', 'type' => 'Combos']);
-        Permission::create(['name' => 'view-combos',   'type' => 'Combos']);
+        Permission::create(['name' => 'create-combo', 'type' => 'Combos']);
+        Permission::create(['name' => 'edit-combo',   'type' => 'Combos']);
+        Permission::create(['name' => 'delete-combo', 'type' => 'Combos']);
+        Permission::create(['name' => 'view-combo',   'type' => 'Combos']);
 
         // Administracion - menu
         Permission::create(['name' => 'view-administracion-menu',   'type' => 'Administracion Menu']);
@@ -42,10 +42,10 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'show-role-permission',   'type' => 'Role']);
 
         // dishe
-        Permission::create(['name' => 'create-dishe', 'type' => 'Dishe']);
-        Permission::create(['name' => 'edit-dishe',   'type' => 'Dishe']);
-        Permission::create(['name' => 'delete-dishe', 'type' => 'Dishe']);
-        Permission::create(['name' => 'view-dishe',   'type' => 'Dishe']);
+        Permission::create(['name' => 'create-dish', 'type' => 'Dishe']);
+        Permission::create(['name' => 'edit-dish',   'type' => 'Dishe']);
+        Permission::create(['name' => 'delete-dish', 'type' => 'Dishe']);
+        Permission::create(['name' => 'view-dish',   'type' => 'Dishe']);
 
         // Drink
         Permission::create(['name' => 'create-drink', 'type' => 'Drink']);
@@ -60,10 +60,10 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name' => 'view-order-combo',   'type' => 'Order Combo']);
 
         // order-dishe
-        Permission::create(['name' => 'create-order-dishe', 'type' => 'Order Dishe']);
-        Permission::create(['name' => 'edit-order-dishe',   'type' => 'Order Dishe']);
-        Permission::create(['name' => 'delete-order-dishe', 'type' => 'Order Dishe']);
-        Permission::create(['name' => 'view-order-dishe',   'type' => 'Order Dishe']);
+        Permission::create(['name' => 'create-order-dish', 'type' => 'Order Dish']);
+        Permission::create(['name' => 'edit-order-dish',   'type' => 'Order Dish']);
+        Permission::create(['name' => 'delete-order-dish', 'type' => 'Order Dish']);
+        Permission::create(['name' => 'view-order-dish',   'type' => 'Order Dish']);
 
         // order-drink
         Permission::create(['name' => 'create-order-drink', 'type' => 'Order Drink']);

@@ -260,19 +260,19 @@ return [
             'text' => 'Comidas',
             'url' => 'dish',
             'icon' => 'fas fa-utensils',
-            'can'  => 'view-dishe'
+            'can'  => 'view-dish'
         ],
         [
             'text' => 'Combos',
             'url' => 'combo',
             'icon' => 'fas fa-cloud-meatball',
-            'can'  => 'view-combos'
+            'can'  => 'view-combo'
         ],
         [
             'text' => 'Clientes',
             'url'  => 'client',
             'icon' => 'fas fa-user-tag',
-            'can'  => 'view-cliente'
+            'can'  => 'view-client'
         ],
         [
             'text' => 'Tomar Orden',
@@ -284,7 +284,7 @@ return [
             'text' => 'Ordenes Comidas',
             'url'  => 'order-dishes',
             'icon' => 'fas fa-clipboard-list',
-            'can'  => 'view-order-dishe'
+            'can'  => 'view-order-dish'
         ],
         [
             'text' => 'Ordenes Bebidas',

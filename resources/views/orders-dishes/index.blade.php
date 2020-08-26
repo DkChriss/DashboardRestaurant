@@ -13,7 +13,8 @@ $columns = [
     ];
 
     $crud = [
-        'config_file'   => 'orders-dishes.partials.config', // user.create
+        'config_file'   => 'orders-dishes.partials.config',
+        'uri'           => 'client',  // user.create
     ];
 
 @endphp

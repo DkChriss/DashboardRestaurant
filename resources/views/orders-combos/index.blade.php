@@ -14,6 +14,7 @@ $columns = [
 
     $crud = [
         'config_file'   => 'orders-combos.partials.config', // user.create
+        'uri'           => 'client',
     ];
 
 @endphp
