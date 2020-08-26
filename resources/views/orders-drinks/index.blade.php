@@ -2,6 +2,13 @@
 
 @section('title', 'Ordenes Bebidas')
 
+@section('content_top_nav_left')
+    <span
+        class="pt-1 font-weight-bold text-uppercase text-black" style="margin-top: 3px;">
+        Ordenes Bebidas
+    </span>
+@endsection
+
 @section('content')
 @php
 $columns = [

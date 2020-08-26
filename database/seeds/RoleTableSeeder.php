@@ -32,19 +32,24 @@ class RoleTableSeeder extends Seeder
             ]
         )->get());
 
-        $admin_2 = Role::create(['name' => 'SECRETARIA']);
-        $admin_2->givePermissionTo(Permission::whereIn(
+        $secretaria = Role::create(['name' => 'SECRETARIA']);
+        $permissions = [
+            'view-client',
+            'view-combo',
+            'view-dish',
+            'view-drink'
+        ];
+        $secretaria->syncPermissions($permissions);
+        $secretaria->givePermissionTo(Permission::whereIn(
             'type',
             [
-                'Shopping',
                 'Order Combo',
                 'Order Dish',
                 'Order Drink',
             ]
         )->get());
-
         $user->assignRole($admin);
         $user1->assignRole($admin_1);
-        $user2->assignRole($admin_2);
+        $user2->assignRole($secretaria);
     }
 }

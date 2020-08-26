@@ -1,6 +1,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Combos')
+@section('content_top_nav_left')
+    <span
+        class="pt-1 font-weight-bold text-uppercase text-black" style="margin-top: 3px;">
+        Combos
+    </span>
+@endsection
 
 @section('content')
 @php
