@@ -14,6 +14,7 @@ class Combo extends Model
     protected $fillable = [
         'name',
         'price',
+        'description',
         'drink_id',
         'dish_id'
     ];
