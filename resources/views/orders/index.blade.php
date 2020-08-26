@@ -2,6 +2,13 @@
 
 @section('title', 'Menu')
 
+@section('content_top_nav_left')
+    <span
+        class="pt-1 font-weight-bold text-uppercase text-black" style="margin-top: 3px;">
+        TOMAR ORDEN
+    </span>
+@endsection
+
 @push('components-css_stack')
 @endpush
 @section('content')
@@ -11,10 +18,10 @@
             <div class="card-header">
                 <h4 class="card-title">Datos Cliente</h4>
             </div>
-            <form id="OrderForm" name="OrderForm" autocomplete="off">    
+            <form id="OrderForm" name="OrderForm" autocomplete="off">
             @csrf
             <div class="card-body">
-                    {{ Form::hidden('dish_id[]', '', ['id'=>'dish_id'])  }}  
+                    {{ Form::hidden('dish_id[]', '', ['id'=>'dish_id'])  }}
                     {{ Form::hidden('drink_id[]', '', ['id'=>'drink_id']) }}
                     {{ Form::hidden('combo_id[]', '', ['id'=>'combo_id']) }}
                     {{ Form::hidden('user_id', '1', ['id'=>'user_id']) }}
@@ -91,10 +98,10 @@
 
                 </div>
                 <div class="col-12 text-center" id="drink-order">
-    
+
                 </div>
                 <div class="col-12 text-center" id="combo-order">
-    
+
                 </div>
             </div>
         </div>
@@ -152,7 +159,7 @@
     var combos = [];
     var validator;
 
-    $('#cancel-order').click(function (e) { 
+    $('#cancel-order').click(function (e) {
         resetForm();
     });
     function resetForm(form) {
@@ -198,9 +205,9 @@
         });
     };
     function addOrder(object, container, array, type) {
-        
+
         let name = $(object).find('h4.name').text();
-        
+
         let id = $(object).attr('id');
 
         let pos = parseInt(id);
@@ -244,7 +251,7 @@
                             </div>
                             <div class="col.3">
                                 <p id="${type}-quantity-${id}">1</p>
-                            </div>  
+                            </div>
                             <div class="col-3">
                                 <p id="total-price-${id}" class="quantity-price ${type}">${price}</p>
                             </div>
@@ -369,7 +376,7 @@
         let p = $(`p#${type}-quantity-${pos}`).text();
         if (parseInt(p) <= 1) {
             array[pos] = 0;
-            $(`div#div-content-${pos}`).html("");   
+            $(`div#div-content-${pos}`).html("");
         } else {
             array[pos] = array[pos] - 1;
             $(`p#${type}-quantity-${pos}`).html(array[pos]);
