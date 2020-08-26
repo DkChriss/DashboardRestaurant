@@ -12,7 +12,7 @@ class Drink extends Model
     use Filterable;
     protected $table = 'drinks';
 
-    protected $fillable = ['name','price'];
+    protected $fillable = ['name','price', 'description'];
 
     protected $casts = [
         'created_at' => 'datetime:d/m/Y H:i:s',
